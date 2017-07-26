@@ -1,0 +1,160 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:form id="taskForm">
+        <p:growl id="taskMessages" showDetail="true" />
+
+        <h1><h:outputText value="Available tasks" styleClass="standard" /></h1>
+        <p:dataTable value="#{taskController.taskList}"
+                     var="task"
+                     selection="#{taskController.selectedTask}"
+                     selectionMode="single"
+                     rowKey="#{task.id}"
+                     emptyMessage="No tasks found."
+                     paginator="true"
+                     rows="10"
+                     rowsPerPageTemplate="10,15,20"
+                     style="font-family: sans-serif; font-size: 12px;">
+
+            <p:ajax event="rowSelect" update="@form" />
+
+            <p:column headerText="Name">
+                <h:outputText value="#{task.name}"/>
+            </p:column>
+
+            <p:column headerText="Time">
+                <div align="center">
+                    <h:outputText rendered="#{task.hourTime ge 10}" value="#{task.hourTime}"/>
+                    <h:outputText rendered="#{task.hourTime le 9}" value="0#{task.hourTime}"/>
+                    <h:outputText value=":"/>
+                    <h:outputText rendered="#{task.minuteTime ge 10}" value="#{task.minuteTime}"/>
+                    <h:outputText rendered="#{task.minuteTime le 10}" value="0#{task.minuteTime}"/>
+                </div>
+            </p:column>
+        </p:dataTable>
+
+        <p:commandButton value="Delete selected task"
+                         style="font-family: sans-serif; font-size: 12px; float: right;"
+                         update="@form"
+                         action="#{taskController.deleteTask()}" />
+        <br />
+        <p:separator />
+
+        <h1><h:outputText value="Selected task" styleClass="standard" /></h1>
+        <p:panelGrid id="panelGrid"
+                     columns="2"
+                     style="width: 100%; font-family: sans-serif; font-size: 12px;">
+
+            <h:outputLabel value="Name:" for="name" />
+            <p:inputText id="name" value="#{taskController.selectedTask.name}" size="40" />
+
+            <h:outputLabel value="Days:" for="days" />
+            <h:panelGrid id="days" columns="2">
+                <h:outputLabel value="Monday:" />
+                <p:selectBooleanCheckbox value="#{taskController.selectedTask.monday}" />
+
+                <h:outputLabel value="Tuesday:" />
+                <p:selectBooleanCheckbox value="#{taskController.selectedTask.tuesday}" />
+
+                <h:outputLabel value="Wednesday:" />
+                <p:selectBooleanCheckbox value="#{taskController.selectedTask.wednesday}" />
+
+                <h:outputLabel value="Thursday:" />
+                <p:selectBooleanCheckbox value="#{taskController.selectedTask.thursday}" />
+
+                <h:outputLabel value="Friday:" />
+                <p:selectBooleanCheckbox value="#{taskController.selectedTask.friday}" />
+
+                <h:outputLabel value="Saturday:" />
+                <p:selectBooleanCheckbox value="#{taskController.selectedTask.saturday}" />
+
+                <h:outputLabel value="Sunday:" />
+                <p:selectBooleanCheckbox value="#{taskController.selectedTask.sunday}" />
+            </h:panelGrid>
+
+            <h:outputLabel value="Time:" />
+            <h:column>
+                <p:inputText value="#{taskController.selectedTask.hourTime}"
+                             type="number"
+                             required="number"
+                             size="2">
+                    <f:validateLongRange maximum="23" minimum="0" />
+                </p:inputText>
+                :
+                <p:inputText value="#{taskController.selectedTask.minuteTime}"
+                             type="number"
+                             required="number"
+                             size="2">
+                    <f:validateLongRange maximum="59" minimum="0" />
+                </p:inputText>
+            </h:column>
+
+            
+            <h:outputLabel value="Todo:" />
+            <h:column id="todo">
+                <table>
+                    <tr>
+                        <td>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <p:selectOneMenu id="methods"
+                                                         value="#{taskController.selectedMethod}"
+                                                         var="method">
+                                            <f:selectItem itemLabel="Select One" itemValue="" />  
+                                            <f:selectItems value="#{taskController.methods}"
+                                                           var="method"
+                                                           itemLabel="#{method}"
+                                                           itemValue="#{method}"/>
+                                            <p:ajax update=":indexTabView:accPanelProfileTask:taskForm:methodInfo" />
+                                        </p:selectOneMenu>
+                                    </td>
+                                    <td><h:inputText value="#{taskController.parameter}"
+                                                     size="4"
+                                                     disabled="#{taskController.isNotCorrectMethod}" /></td>
+                                </tr>
+                            </table>
+                            <br />
+                            Info:<br />
+                            <h:inputTextarea id="methodInfo"
+                                             value="#{taskController.selectedMethodInfo}"
+                                             disabled="true"
+                                             style="height: 75px; width: 200px;" />
+                        </td>
+                        <td>
+                            <p:dataTable var="device"
+                                         value="#{taskController.devicesForTaskList}"
+                                         style="font-family: sans-serif; font-size: 12px;"
+                                         selection="#{taskController.selectedDevice}"
+                                         selectionMode="single"
+                                         rowKey="#{device.deviceId}">
+
+                                <p:ajax event="rowSelect" update=":indexTabView:accPanelProfileTask:taskForm:methods" />
+
+                                <p:column headerText="Name">
+                                    #{device.name}
+                                </p:column>
+                            </p:dataTable>
+                        </td>
+                    </tr>
+                </table>
+            </h:column>
+        </p:panelGrid>
+
+        <p:commandButton value="Create task"
+                         style="font-family: sans-serif; font-size: 12px;"
+                         update="@form"
+                         action="#{taskController.createTask()}" />
+
+        <p:commandButton value="Edit selected task"
+                         style="font-family: sans-serif; font-size: 12px;"
+                         update="@form"
+                         action="#{taskController.editTask()}" />
+
+    </h:form>
+</html>
+

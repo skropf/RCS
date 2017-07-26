@@ -1,0 +1,29 @@
+#ifndef Sensor_h
+#define Sensor_h
+
+#include <SPI.h>
+#include <IOSensor.h>
+#include <iterator> 
+#include <list> 
+#include <IPersistAble.h>
+
+class Sensor : public IPersistable
+{
+  public:
+  int getId();
+  void setId(int);
+  int getValue();
+  std::list<Sensor> getSensorList();
+  void sethardWareSensor(IOSensor);
+  IOSensor getIOSensor();
+  
+  virtual String saveObject()=0;
+  	virtual IPersistable* cloneWithParams(String)=0;
+  	virtual String getClassName()=0;
+  	
+  protected:
+  int id;
+  IOSensor hardwareSensor;
+};
+
+#endif

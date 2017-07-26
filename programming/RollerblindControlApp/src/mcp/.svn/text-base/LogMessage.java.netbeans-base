@@ -1,0 +1,28 @@
+package mcp;
+
+import java.io.Serializable;
+import mcp.util.MessageTypeEnum;
+
+/**
+ *
+ * @author skropf
+ */
+public class LogMessage extends Message implements Serializable {
+    
+    private int status;
+    private String logText;
+
+    public LogMessage(int status, String logText) {
+        super(GlobalMessageID.getInstance().getId(), MessageTypeEnum.LOGMESSAGE);
+        this.status = status;
+        this.logText = logText;
+    }
+    
+    //#MsgID/LogID:MsgType=3:status:logText;
+    @Override
+    public String toString() {
+        return super.toString() +
+                ":" + status +
+                ":" + logText + ";";
+    }
+}

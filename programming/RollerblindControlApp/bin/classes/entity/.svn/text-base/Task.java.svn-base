@@ -1,0 +1,76 @@
+package entity;
+
+import java.io.Serializable;
+import java.sql.Timestamp;
+import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import mcp.CallMessage;
+
+/**
+ *
+ * @author skropf
+ */
+@Entity
+public class Task implements Serializable {
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    
+    private boolean[] days = new boolean[7];
+    private Timestamp taskTime;
+    
+    private List<CallMessage> todo;
+
+    public Task() {
+    }
+    
+    public Task(Timestamp taskTime, boolean[] days, List<CallMessage> todo) {
+        this.taskTime = taskTime;
+        this.days = days;
+        this.todo = todo;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public boolean[] getDays() {
+        return days;
+    }
+    
+    public void setDay(int index, boolean day) {
+        days[index] = day;
+    }
+    
+    public boolean getDay(int index) {
+        return days[index];
+    }
+
+    public void setDays(boolean[] days) {
+        this.days = days;
+    }
+
+    public Timestamp getTaskTime() {
+        return taskTime;
+    }
+
+    public void setTaskTime(Timestamp taskTime) {
+        this.taskTime = taskTime;
+    }
+
+    public List<CallMessage> getTodo() {
+        return todo;
+    }
+
+    public void setTodo(List<CallMessage> todo) {
+        this.todo = todo;
+    }
+}

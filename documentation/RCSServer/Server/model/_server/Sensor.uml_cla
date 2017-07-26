@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes'?>
+<xmi:XMI xmi:version='2.1' xmlns:xmi='http://schema.omg.org/spec/XMI/2.1' xmlns:uml='http://schema.omg.org/spec/UML/2.1.1/uml.xml'>
+ <documentation exporter='Oracle JDeveloper' exporterVersion='11.1.2.1.0'/>
+ <uml:Class xmi:uuid='urn:uuid:15998129-8082-4ffb-82f4-58e76baad577'
+   isAbstract='false'
+   isActive='false'
+   isLeaf='false'
+   name='Sensor'
+   visibility='public'>
+  <ownedAttribute xmi:uuid='urn:uuid:ecfc012a-9bd2-4776-8ddb-dcc2f19607b3'
+    isDerived='false'
+    isDerivedUnion='false'
+    isLeaf='false'
+    isOrdered='false'
+    isReadOnly='false'
+    isStatic='false'
+    isUnique='true'
+    name='id'
+    aggregation='none'
+    visibility='private'>
+   <type href='mof:/int:uml:Type'/>
+   <lowerValue xmi:type='uml:LiteralInteger' xmi:uuid='urn:uuid:8b8464c1-f962-460a-b770-591e4ba5dc66'
+     value='1'
+     visibility='public'/>
+   <upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:uuid='urn:uuid:ac705e0c-c9af-4201-93ee-7434ddcd639b'
+     value='1'
+     visibility='public'/>
+  </ownedAttribute>
+  <ownedAttribute xmi:uuid='urn:uuid:f24110f5-58c3-4b3b-86c3-28553647acd3'
+    isDerived='false'
+    isDerivedUnion='false'
+    isLeaf='false'
+    isOrdered='false'
+    isReadOnly='false'
+    isStatic='false'
+    isUnique='true'
+    name='name'
+    aggregation='none'
+    visibility='private'>
+   <type href='mof:/char*:uml:Type'/>
+   <lowerValue xmi:type='uml:LiteralInteger' xmi:uuid='urn:uuid:7a8eb323-bdf3-42a7-a5a7-13a8fa7c809c'
+     value='1'
+     visibility='public'/>
+   <upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:uuid='urn:uuid:4b2d7267-395a-4967-8e9d-4a4d77f46ef9'
+     value='1'
+     visibility='public'/>
+  </ownedAttribute>
+ </uml:Class>
+</xmi:XMI>

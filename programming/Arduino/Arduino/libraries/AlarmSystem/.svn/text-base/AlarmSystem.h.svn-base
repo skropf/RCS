@@ -1,0 +1,45 @@
+#ifndef AlarmSystem_h
+#define AlarmSystem_h
+
+#include <Loggable.h>
+#include <MovementSensor.h>
+#include <SolidStateRelay.h>
+#include <SPI.h>
+#include <iterator> 
+#include <list> 
+#include <vector>
+#include <Log.h>
+
+
+
+
+class AlarmSystem : public Device
+{
+  public:
+  	AlarmSystem();
+  	SolidStateRelay* getSirene();
+  	void setSirene(SolidStateRelay*);
+  	MovementSensor* getRangeSensor();
+  	void setRangeSensor(MovementSensor*);
+  	String join(std::vector<String>);
+    virtual String saveObject();
+  	virtual IPersistable* cloneWithParams(String);
+  	virtual String getClassName(){return String("AlarmSystem");};
+  	virtual String callMethod(String,std::vector<String>);
+	String start(std::vector<String>);
+  	
+
+
+  	virtual void update();
+  private:
+  	SolidStateRelay* sirene;
+  	MovementSensor* rangeSensor;
+  	std::vector<String> destinations;
+  	
+  	typedef String (AlarmSystem::*pt2Member)(std::vector<String>);
+ 	pt2Member functionArray[2];
+ 	String functionNames[2];
+  	
+};
+
+#endif

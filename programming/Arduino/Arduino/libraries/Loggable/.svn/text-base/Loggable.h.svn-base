@@ -1,0 +1,11 @@
+#ifndef Loggable_h
+#define Loggable_h
+#include <SPI.h>
+
+class Loggable
+{
+  public:
+    virtual String getLogMsg();
+};
+
+#endif

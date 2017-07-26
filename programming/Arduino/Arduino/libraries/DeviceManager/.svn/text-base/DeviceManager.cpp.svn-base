@@ -1,0 +1,125 @@
+#include <Device.h>
+#include "DeviceManager.h"
+#include <SdFat.h>
+#include <Log.h>
+#include <iterator> 
+#include <list> 
+#include <map>
+#include <SimpleDevice.h>
+#include <IPersistable.h>
+#include <UnifiedFactory.h>
+
+//Sd2Card card;
+//SdVolume volume;
+
+template<typename T, int size>
+int GetArrayLength(T(&)[size]){return size;}
+
+
+
+DeviceManager* DeviceManager::instance = 0;
+
+DeviceManager* DeviceManager::getInstance()
+{
+  if(instance == 0) instance =  new DeviceManager();
+  return instance;
+}
+void DeviceManager::addDevice(Device *d)
+{
+  	deviceMap[d->getId()] = d; 
+}
+void DeviceManager::addActor(Actor *d)
+{
+	Log::serial("Actor: " + d->getId());
+  	actorMap[d->getId()] = d; 
+}
+void DeviceManager::addSensor(Sensor *d)
+{
+	Log::serial(d->getId() + "");
+  	sensorMap[d->getId()] = d; 
+}
+Device* DeviceManager::getDeviceById(int id)
+{
+  	return deviceMap[id];
+}
+Actor* DeviceManager::getActorById(int id)
+{
+  	return actorMap[id];
+}
+Sensor* DeviceManager::getSensorById(int id)
+{
+  	return sensorMap[id];
+}
+int DeviceManager::writeToSdCard()
+{
+	/*pinMode(10, OUTPUT);                       // set the SS pin as an output (necessary!)
+  	digitalWrite(10, HIGH);                    // but turn off the W5100 chip!
+
+  if (!card.init(SPI_HALF_SPEED, 4)) Log::serial("card.init failed!");
+  
+  // initialize a FAT volume
+  if (!volume.init(&card)) Log::serial("vol.init failed!");
+
+  Serial.println(volume.fatType(),DEC);
+  Serial.println();
+  if(-1==this->persist("Actors.mcp",&actorMap)) return -1;
+  if(-1==this->persist("Sensors.mcp",&sensorMap)) return -1;
+  if(-1==this->persist("Devices.mcp",&deviceMap)) return -1;
+  return 1;*/
+}
+int DeviceManager::persist(char * fileName,void * ptr)
+{
+
+	/*std::map<int,IPersistable*,ltDev>* persistableMap = reinterpret_cast<std::map<int, IPersistable*,ltDev> *>(ptr);
+	SdFile file;
+if (!file.open(fileName, O_RDWR | O_CREAT | O_AT_END)) {
+    return -1;
+  }
+  std::map<int, IPersistable*>::iterator it;
+  
+  for ( it=persistableMap->begin() ; it != persistableMap->end(); it++ )
+    {
+    	String persistString = it->second->saveObject();
+    	file.println(persistString);
+    }
+    free(&it);
+  	file.close();
+  	free(&file);
+  return 1;*/
+}
+
+int DeviceManager::readFromSdCard()
+{
+	/*pinMode(10, OUTPUT);                       // set the SS pin as an output (necessary!)
+  	digitalWrite(10, HIGH);                    // but turn off the W5100 chip!
+
+  if (!card.init(SPI_HALF_SPEED, 4)) Log::serial("card.init failed!");
+  
+  // initialize a FAT volume
+  if (!volume.init(&card)) Log::serial("vol.init failed!");
+
+  Serial.println(volume.fatType(),DEC);
+  Serial.println();
+  if(-1==this->load("Actors.mcp",&actorMap)) return -1;
+  if(-1==this->load("Sensors.mcp",&sensorMap)) return -1;
+  if(-1==this->load("Devices.mcp",&deviceMap)) return -1;
+  return 1;*/
+}
+int DeviceManager::load(char * fileName, void*ptr)
+{
+	/*std::map<int,IPersistable*,ltDev>* persistableMap = reinterpret_cast<std::map<int, IPersistable*,ltDev> *>(ptr);
+	
+	SdFile file;
+if (!file.open(fileName, O_READ)) {
+    return -1;
+  }
+  char name[255]; 
+  char params[255];
+  while(file.fgets(name, sizeof(name)) > 0)
+  {
+  		file.fgets(params,sizeof(params));
+  		IPersistable* persist = UnifiedFactory::getInstance()->generateClassFromName(String(name),params);
+  		
+  		(*persistableMap)[persist->getId()] = persist; 
+  }*/
+}

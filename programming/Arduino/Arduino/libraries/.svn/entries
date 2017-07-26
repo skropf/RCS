@@ -1,0 +1,136 @@
+10
+
+dir
+119
+https://subversionneu.htl-leonding.ac.at/svn/2011roomControllingSystem/programming/Arduino/libraries
+https://subversionneu.htl-leonding.ac.at/svn/2011roomControllingSystem
+
+
+
+2012-02-03T14:32:12.691235Z
+119
+simon.kropf
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+1b221239-1faf-4aca-8ba4-454c8bf256e3
+
+Actor
+dir
+
+AlarmSystem
+dir
+
+AndroidAccessory
+dir
+
+Call_Message
+dir
+
+Connector
+dir
+
+Device
+dir
+
+DeviceManager
+dir
+
+Global_MessageId
+dir
+
+IICBus
+dir
+
+IO
+dir
+
+IOActor
+dir
+
+IOSensor
+dir
+
+IPersistable
+dir
+
+Led
+dir
+
+Log
+dir
+
+Log_Message
+dir
+
+Loggable
+dir
+
+MCP_Interpreter
+dir
+
+MCP_Message
+dir
+
+MCP_Methods
+dir
+
+MovementSensor
+dir
+
+NtpClient
+dir
+
+PS2Keyboard
+dir
+
+Result_Message
+dir
+
+Rolladen
+dir
+
+SdFat
+dir
+
+Sensor
+dir
+
+SimpleDevice
+dir
+
+SolidStateIOActor
+dir
+
+SolidStateRelay
+dir
+
+StringUtility
+dir
+
+USB_Host_Shield
+dir
+
+UltraSonicIOSensor
+dir
+
+Ultrasonic
+dir
+
+UnifiedFactory
+dir
+
+not used
+dir
+

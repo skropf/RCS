@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes'?>
+<xmi:XMI xmi:version='2.1' xmlns:xmi='http://schema.omg.org/spec/XMI/2.1' xmlns:uml='http://schema.omg.org/spec/UML/2.1.1/uml.xml'>
+ <documentation exporter='Oracle JDeveloper' exporterVersion='11.1.2.1.0'/>
+ <uml:Class xmi:uuid='urn:uuid:ef689c17-263b-4ef0-8567-ba8fbc7b42aa'
+   isAbstract='false'
+   isActive='false'
+   isLeaf='false'
+   name='DeviceManager'
+   visibility='public'>
+  <ownedAttribute xmi:uuid='urn:uuid:3b3cf2eb-c338-4c9b-a4c9-2d6022b661cd'
+    isDerived='false'
+    isDerivedUnion='false'
+    isLeaf='false'
+    isOrdered='false'
+    isReadOnly='false'
+    isStatic='false'
+    isUnique='true'
+    name='controlAppMap'
+    aggregation='none'
+    visibility='private'>
+   <type href='mof:/map%3Cint,%20ControlApp*%3E:uml:Type'/>
+   <lowerValue xmi:type='uml:LiteralInteger' xmi:uuid='urn:uuid:fb0cca19-826a-4b61-9d46-763478bdac2b'
+     value='1'
+     visibility='public'/>
+   <upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:uuid='urn:uuid:90724282-2f6d-4065-9875-3b4a0f53d311'
+     value='1'
+     visibility='public'/>
+  </ownedAttribute>
+  <ownedAttribute xmi:uuid='urn:uuid:c2fd502c-b4aa-4143-a3f4-c64d961b71ee'
+    isDerived='false'
+    isDerivedUnion='false'
+    isLeaf='false'
+    isOrdered='false'
+    isReadOnly='false'
+    isStatic='false'
+    isUnique='true'
+    name='sensorMap'
+    aggregation='none'
+    visibility='private'>
+   <type href='mof:/Map%3Cint,%20Sensor*%3E:uml:Type'/>
+   <lowerValue xmi:type='uml:LiteralInteger' xmi:uuid='urn:uuid:dcaf9a55-6847-4563-ae39-56822cbc55d6'
+     value='1'
+     visibility='public'/>
+   <upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:uuid='urn:uuid:9d77d66f-f2a3-44e5-a598-11a7d3e5f29e'
+     value='1'
+     visibility='public'/>
+  </ownedAttribute>
+  <ownedAttribute xmi:uuid='urn:uuid:6011ced2-b988-48e9-890c-ffb23b43340c'
+    isDerived='false'
+    isDerivedUnion='false'
+    isLeaf='false'
+    isOrdered='false'
+    isReadOnly='false'
+    isStatic='false'
+    isUnique='true'
+    name='actorMap'
+    aggregation='none'
+    visibility='private'>
+   <type href='mof:/Map%3Cint,%20Actor*%3E:uml:Type'/>
+   <lowerValue xmi:type='uml:LiteralInteger' xmi:uuid='urn:uuid:fed5c991-9866-40b7-b64c-a38a9a826cb2'
+     value='1'
+     visibility='public'/>
+   <upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:uuid='urn:uuid:ecd92330-a527-4c1c-840c-85c7a049768e'
+     value='1'
+     visibility='public'/>
+  </ownedAttribute>
+  <ownedAttribute xmi:uuid='urn:uuid:d5299651-1dd9-4796-8cc8-d1add41f4a3a'
+    isDerived='false'
+    isDerivedUnion='false'
+    isLeaf='false'
+    isOrdered='false'
+    isReadOnly='false'
+    isStatic='false'
+    isUnique='true'
+    name='INSTANCE'
+    aggregation='none'
+    visibility='private'>
+   <type href='urn:uuid:ef689c17-263b-4ef0-8567-ba8fbc7b42aa'/>
+   <lowerValue xmi:type='uml:LiteralInteger' xmi:uuid='urn:uuid:151d04c2-8fcc-4a7a-b2ca-4ce5303d53a9'
+     value='1'
+     visibility='public'/>
+   <upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:uuid='urn:uuid:3d52eb23-1057-49ef-b5ff-1610efdef9b9'
+     value='1'
+     visibility='public'/>
+  </ownedAttribute>
+ </uml:Class>
+</xmi:XMI>

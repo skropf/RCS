@@ -1,0 +1,24 @@
+#ifndef MovementSensor_h
+#define MovementSensor_h
+
+
+#include <Sensor.h>
+#include <IPersistable.h>
+
+class MovementSensor: public Sensor
+{
+	public:
+  		bool checkForMovement();
+		void start();
+  		void setIOPin(int);
+  		int getIOPin();
+  		
+  		virtual String saveObject();
+  		virtual IPersistable* cloneWithParams(String);
+  		virtual String getClassName();
+  	
+  	private:
+  		int pin;
+};
+
+#endif

@@ -1,0 +1,33 @@
+#include <SPI.h>
+#include "Result_Message.h"
+#include <Global_MessageId.h>
+
+Result_Message::Result_Message(String msg)
+{
+  this->message = msg;
+  //this->parse(msg);
+}
+Result_Message::Result_Message()
+{
+	this->type = Result;
+}
+
+void Result_Message::setReturnValue(String param)
+{
+	this->returnValue = param;
+}
+void Result_Message::parse(String arg)
+{
+}
+//#MsgId:MsgType:Type:Result
+String Result_Message::getMessage()
+{
+	String msg = String("#");
+	msg += Global_MessageId::getInstance()->getNextId();
+	msg += ":";
+	msg += this->type;
+	msg += ":";
+	msg += this->returnValue;
+	msg += "\n";
+	return msg;
+}

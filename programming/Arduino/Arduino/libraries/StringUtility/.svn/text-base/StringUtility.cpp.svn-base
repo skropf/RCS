@@ -1,0 +1,57 @@
+#include "StringUtility.h"
+#include <iterator> 
+#include <list> 
+#include <vector>
+#include <Log.h>
+
+void StringUtility::split(String input,char splitChar,std::vector<String> &params)
+{
+	Log::serial("spliting text: ");
+	Log::serial(input);
+  	char charArray[100];
+  	input.toCharArray(charArray,49);
+	String current = String("");
+	int i=0;
+	if(charArray[0] == '#')i=1;
+	while(charArray[i]!=';'&& charArray[i]!=0 ) //oder 0
+	{
+		if(charArray[i]==splitChar)
+		{
+			//Log::serial(*current);
+			params.push_back(current);
+			//Log::serial(params[counter]);
+			current = String("");
+		}
+		else
+		{
+			current +=charArray[i];
+		}
+		i++;
+	}
+			params.push_back(current);
+			
+	/*Log::serial("Elems: intern");
+	Log::serial(params[0]);
+	Log::serial(params[1]);
+	Log::serial(params[2]);
+	Log::serial(params[3]);*/
+}
+String StringUtility::merge(std::vector<String> params,char splitChar)
+{
+	String erg = String("");
+	std::vector<String>::const_iterator it;
+	for(it=params.begin();it!=params.end();it++)
+	{
+		erg+=*it;
+		erg+=splitChar;
+	}
+	return erg;
+}
+int StringUtility::ConvertStringToInt(String param)
+{
+	char charBuf[50];
+    param.toCharArray(charBuf, 50);
+  	int id = atoi(charBuf);
+  	free(charBuf);
+  	return id;
+}

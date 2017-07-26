@@ -1,0 +1,25 @@
+#ifndef Call_Message_h
+#define Call_Message_h
+
+#include <MCP_Message.h>
+#include <iterator> 
+#include <vector> 
+
+class Call_Message : public MCP_Message
+{
+  public:
+  	Call_Message(const std::vector<String>&);
+    virtual void parse(const std::vector<String>&);
+    String getMessage();
+    void setMethodName(String);
+    void setParams(std::vector<String>);
+    String getMethodName();
+    std::vector<String> getParams();
+    int getDevId();
+  private:
+  	std::vector<String> params;
+  	String methodName;
+  	int devId;
+};
+
+#endif

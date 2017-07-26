@@ -1,0 +1,20 @@
+#ifndef Result_Message_h
+#define Result_Message_h
+
+#include <SPI.h>
+#include <MCP_Message.h>
+
+class Result_Message : public MCP_Message
+{
+  public:
+  	Result_Message(String);
+  	Result_Message();
+    String getMessage();
+    void setReturnValue(String);
+    String getReturnValue();
+    virtual void parse(String);
+  private:
+  	String returnValue;
+};
+
+#endif

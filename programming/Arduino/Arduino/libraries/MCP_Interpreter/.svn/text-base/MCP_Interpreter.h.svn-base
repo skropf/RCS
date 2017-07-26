@@ -1,0 +1,15 @@
+#ifndef MCP_Interpreter_h
+#define MCP_Interpreter_h
+#include <iterator> 
+#include <list> 
+#include <vector>
+
+class MCP_Interpreter
+{
+  public:
+    String interprete(String);
+  private:
+  	String handleCallMessage(const std::vector<String>& msg);
+};
+
+#endif

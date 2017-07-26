@@ -1,0 +1,36 @@
+#ifndef Device_h
+#define Device_h
+
+#include <IO.h>
+#include <SPI.h>
+#include <iterator> 
+#include <list>
+#include <vector> 
+#include <Sensor.h>
+#include <Actor.h>
+#include <IPersistable.h>
+
+class Device: public IPersistable
+{
+  public:
+  virtual int getId();
+  void setId(int);
+  void setName(String);
+  String getName();
+  //std::list<Sensor>* getSensorList();
+  //std::list<Actor>* getActorList();
+  virtual String callMethod(String,std::vector<String>) = 0;
+  virtual void update() =0;
+  /*virtual String saveObject(){
+  	return String("");
+}*/
+	virtual String saveObject()=0;
+  	virtual IPersistable* cloneWithParams(String)=0;
+  	virtual String getClassName()=0;
+  protected:
+  String name;
+  int deviceId;
+  
+};
+
+#endif

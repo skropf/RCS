@@ -1,0 +1,26 @@
+#ifndef Connector_h
+#define Connector_h
+
+
+class Connector
+{
+  public:
+  	static Connector* getInstance();
+    void setMessageCallback(void (*pt2Func)(String));
+    void checkforEthernetMessages();
+    void checkforSerialMessages();
+    void sendResult(String);
+    void sendResult(String,String);
+    void initSerial();
+    void initEthernetShield();
+    String getLastConnection();
+  private:
+  	static Connector * instance;
+  	byte* convertToByteArray(String);
+  	void (*messageCallback)(String);
+  	bool isValidMessage(String);
+	Connector(){};
+	String getConnection();
+};
+
+#endif

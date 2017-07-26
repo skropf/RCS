@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes'?>
+<xmi:XMI xmi:version='2.1' xmlns:xmi='http://schema.omg.org/spec/XMI/2.1' xmlns:uml='http://schema.omg.org/spec/UML/2.1.1/uml.xml'>
+ <documentation exporter='Oracle JDeveloper' exporterVersion='11.1.2.1.0'/>
+ <uml:Collaboration xmi:uuid='urn:uuid:b0e7c811-1284-4013-a739-3617f41721ef'
+   isAbstract='false'
+   isLeaf='false'
+   name='Collaboration6'
+   visibility='public'>
+  <collaborationRole href='urn:uuid:c708f0dd-10ea-4431-9055-841579d32e3c'/>
+  <collaborationRole href='urn:uuid:c0bf9473-29de-460e-891e-370d500256c0'/>
+  <ownedAttribute xmi:uuid='urn:uuid:c708f0dd-10ea-4431-9055-841579d32e3c'
+    isDerived='false'
+    isDerivedUnion='false'
+    isLeaf='false'
+    isOrdered='false'
+    isReadOnly='false'
+    isStatic='false'
+    isUnique='true'
+    name='Android'
+    aggregation='none'/>
+  <ownedAttribute xmi:uuid='urn:uuid:c0bf9473-29de-460e-891e-370d500256c0'
+    isDerived='false'
+    isDerivedUnion='false'
+    isLeaf='false'
+    isOrdered='false'
+    isReadOnly='false'
+    isStatic='false'
+    isUnique='true'
+    name='Arduino MC'
+    aggregation='none'/>
+  <ownedBehavior xmi:type='uml:Interaction' xmi:uuid='urn:uuid:0e0f1f18-f193-4b8d-977f-5d75f83124b6'
+    isAbstract='false'
+    isActive='false'
+    isLeaf='false'
+    isReentrant='false'
+    name='Interaction1'
+    visibility='public'>
+   <lifeline xmi:uuid='urn:uuid:a60c71c4-bf29-463e-8035-ee68c8db28f0'
+     name='Lifeline1'>
+    <represents href='urn:uuid:c708f0dd-10ea-4431-9055-841579d32e3c'/>
+   </lifeline>
+   <lifeline xmi:uuid='urn:uuid:f34f2f2c-38de-407a-898b-34164f78e19d'
+     name='Lifeline2'>
+    <represents href='urn:uuid:c0bf9473-29de-460e-891e-370d500256c0'/>
+   </lifeline>
+  </ownedBehavior>
+ </uml:Collaboration>
+</xmi:XMI>

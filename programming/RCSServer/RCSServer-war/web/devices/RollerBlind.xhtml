@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <p:panelGrid columns="3" style="text-align: center;">
+        <p:column>
+            <div id="rollerblind#{deviceController.selectedDevice.deviceId}"
+                 class="standard"
+                 style="width: 140px; height: 150px; position: relative;">
+
+                <div id="divOutside#{deviceController.selectedDevice.deviceId}"
+                     style="position: relative; width: 120px; height: 150px; float: left;">
+
+                    <img id="imgOutside#{deviceController.selectedDevice.deviceId}"
+                         src="pictures/rollerblind_outside.jpg"
+                         style="position: absolute; width: 120px;" />
+
+                    <div id="divInside#{deviceController.selectedDevice.deviceId}"
+                         style="position: relative; overflow: hidden; top: 27px; left: 8px; width: 104px; height: 124px;">
+
+                        <img id="imgInside#{deviceController.selectedDevice.deviceId}"
+                             src="pictures/rollerblind_inside.jpg"
+                             style="position: absolute; width: 104px;"
+                             onload="rollerblind_moveToPosition(
+                                 'indexTabView:devicesForm:sliderText#{deviceController.selectedDevice.deviceId}',
+                                 'imgInside#{deviceController.selectedDevice.deviceId}');" />
+                    </div>
+                </div>
+                <div style="position: absolute; bottom: 0; right: 0px;">
+                    <p:slider id="slider#{deviceController.selectedDevice.deviceId}"
+                              for="sliderText#{deviceController.selectedDevice.deviceId}"
+                              type="vertical"
+                              minValue="0"
+                              maxValue="1000"
+                              style="height: 120px; float: right, bottom;"
+                              onSlide="rollerblind_moveToPosition(
+                              'indexTabView:devicesForm:sliderText#{deviceController.selectedDevice.deviceId}',
+                              'imgInside#{deviceController.selectedDevice.deviceId}');"
+                              onSlideEnd="rollerblind_moveToPosition(
+                              'indexTabView:devicesForm:sliderText#{deviceController.selectedDevice.deviceId}',
+                              'imgInside#{deviceController.selectedDevice.deviceId}');"/>
+                </div>
+            </div>
+        </p:column>
+
+        <p:commandButton value="Set position" action="#{deviceController.currentRollerBlindMoveToPosition()}" />
+
+        <h:inputHidden id="sliderText#{deviceController.selectedDevice.deviceId}"
+                       value="#{deviceController.currentRollerBlind.position}" />
+
+        <h:outputLabel value="Current brightness:" />
+
+        <p:column>
+            <p:inputText disabled="true"
+                         value="#{deviceController.sensorDevice.brightness}"
+                         size="3" />
+
+            <h:outputLabel value="Lum" />
+        </p:column>
+
+        <h:outputLabel />
+
+        <h:outputLabel value="Brightness condition:" />
+
+        <p:column>
+            <p:inputText id="rollerBlind#{deviceController.selectedDevice.deviceId}"
+                         type="number"
+                         required="number"
+                         maxlength="4"
+                         size="4"
+                         value="#{deviceController.currentRollerBlind.brightness}" />
+
+            <h:outputLabel value="Lum" />
+        </p:column>
+
+        <p:column>
+            <div align="center">
+                <p:commandButton value="Set condition"
+                                 action="#{deviceController.currentRollerBlindSetCondition()}" />
+                <br />
+                <p:commandButton value="Remove condition"
+                                 action="#{deviceController.currentRollerBlindRemoveCondition()}"
+                                 update="@form" />
+            </div>
+        </p:column>
+    </p:panelGrid>
+</html>

@@ -1,0 +1,94 @@
+#include "AlarmSystem.h"
+#include <SolidStateRelay.h>
+#include <StringUtility.h>
+#include <Result_Message.h>
+#include <Connector.h>
+
+
+
+
+template<typename T, int size>
+int GetArrayLength(T(&)[size]){return size;}
+
+
+SolidStateRelay* AlarmSystem::getSirene()
+{
+  return this->sirene;
+}
+void AlarmSystem::setSirene(SolidStateRelay* ssr)
+{
+  this->sirene=ssr;
+}
+MovementSensor* AlarmSystem::getRangeSensor()
+{
+  return this->rangeSensor;
+}
+
+String AlarmSystem::callMethod(String methodName,std::vector<String> params)
+{
+	for(int i = 0;i<GetArrayLength(functionNames);i++)
+	{
+		if(functionNames[i] == methodName)
+		{
+			return (this->*functionArray[i])(params);
+		}
+	}
+}
+String AlarmSystem::join(std::vector<String> args)
+{
+	Serial.println("join called");
+	Log::serial("IP:");
+	String ip = String(Connector::getInstance()->getLastConnection());
+	Log::serial(ip);
+	destinations.push_back(ip);
+	return "true";
+}
+void AlarmSystem::update()
+{
+	bool hasChanged = this->rangeSensor->checkForMovement();
+	
+	/*Serial.println("Check for Change");
+	Serial.println(this->getSirene()->getId());
+	Serial.println(this->getRangeSensor()->getId());*/
+	if(hasChanged)
+	{
+		Result_Message *msg = new Result_Message("moved");
+		std::vector<String>::iterator it;
+		for ( it=destinations.begin() ; it != destinations.end(); it++ )
+		{
+			Connector::getInstance()->sendResult(msg->getMessage(),*it);
+		}
+		free(&it);
+	}
+}
+String AlarmSystem::start(std::vector<String> args)
+{
+	this->rangeSensor->start();
+	return "OK";
+}
+AlarmSystem::AlarmSystem()
+{
+	destinations = std::vector<String>();
+	functionArray[0] = &AlarmSystem::join;
+	functionNames[0] = String("join");
+	
+	functionArray[1] = &AlarmSystem::start;
+	functionNames[1] = String("start");
+}
+void AlarmSystem::setRangeSensor(MovementSensor* sensor)
+{
+	this->rangeSensor = sensor;
+}
+
+String AlarmSystem::saveObject()
+{
+	return NULL;
+}
+IPersistable* AlarmSystem::cloneWithParams(String args)
+{
+	return NULL;
+}
+  	
+  	
+  	
+  	

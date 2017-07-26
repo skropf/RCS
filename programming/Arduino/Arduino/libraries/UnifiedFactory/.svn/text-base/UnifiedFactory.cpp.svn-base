@@ -1,0 +1,30 @@
+#include <SimpleDevice.h>
+#include <IPersistable.h>
+#include <AlarmSystem.h>
+#include "UnifiedFactory.h"
+
+template<typename T, int size>
+int GetArrayLength(T(&)[size]){return size;}
+
+IPersistable* persistableClassArray[2] = {new SimpleDevice(),new AlarmSystem()};
+
+IPersistable* UnifiedFactory::generateClassFromName(String className,String params)
+{
+	IPersistable* obj;
+  for(int i = 0;i<GetArrayLength(persistableClassArray);i++)
+	{
+		if(persistableClassArray[i]->getClassName() == className)
+		{
+  			obj = (IPersistable *)persistableClassArray[i]->cloneWithParams(params);
+			break;
+		}
+	}
+	return obj;
+}
+UnifiedFactory* UnifiedFactory::instance = 0;
+
+UnifiedFactory* UnifiedFactory::getInstance()
+{
+  if(instance==0) instance = new UnifiedFactory();
+  return instance;
+}

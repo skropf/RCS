@@ -1,0 +1,37 @@
+#include "MovementSensor.h"
+
+int counter = 0;
+bool MovementSensor::checkForMovement()
+{
+	if(counter==100000)
+	{
+		counter=0;
+		return true;
+	}
+	counter++;
+	return false;
+}
+void MovementSensor::setIOPin(int pin)
+{
+	this->pin = pin;
+}
+void MovementSensor::start()
+{
+}
+int MovementSensor::getIOPin()
+{
+	return this->pin;
+}
+
+String MovementSensor::saveObject()
+{
+	return NULL;
+}
+IPersistable* MovementSensor::cloneWithParams(String params)
+{
+	return NULL;
+}
+String MovementSensor::getClassName()
+{
+	return NULL;
+}

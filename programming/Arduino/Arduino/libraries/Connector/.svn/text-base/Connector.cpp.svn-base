@@ -1,0 +1,231 @@
+#include <SPI.h>
+
+#include <Client.h>
+#include <Ethernet.h>
+#include <Server.h>
+#include <Udp.h>
+
+#include <Max3421e.h>
+#include <Usb.h>
+#include <AndroidAccessory.h>
+
+#define SERIAL_RETRIES 100
+#define ETHERNET_RETRIES 100
+#define SERIAL 1
+#define ETHERNET 2
+
+#include <Log.h>
+#include <iterator> 
+#include <list> 
+#include <vector> 
+#include <StringUtility.h>
+#include "Connector.h"
+
+
+
+// Enter a MAC address and IP address for your controller below.
+// The IP address will be dependent on your local network:
+byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
+byte ip[] = { 192,168,1, 2 };
+String ipdest = "192.168.1.1";
+String lastConnection = "";
+
+// Initialize the Ethernet server library
+// with the IP address and port you want to use 
+// (port 80 is default for HTTP):
+Server server(13316);
+
+int connectionType;
+Client *client;
+
+AndroidAccessory acc("Google, Inc.",
+		     "DemoKit",
+		     "DemoKit Arduino Board",
+		     "1.0",
+		     "http://www.android.com",
+		     "0000000012345678");
+
+
+Connector* Connector::instance = 0;
+
+Connector* Connector::getInstance()
+{
+  if(instance == 0) instance =  (Connector*)malloc(sizeof(Connector));
+  return instance;
+}
+
+
+void Connector::initSerial()
+{ 
+  	Serial.begin(115200);
+}
+void Connector::initEthernetShield()
+{
+	Ethernet.begin(mac, ip);
+  	server.begin();  
+}
+void Connector::setMessageCallback(void (*pt2Func)(String))
+{
+	messageCallback = pt2Func;
+}
+void Connector::checkforEthernetMessages()
+{
+	client = &server.available();
+	if (!(*client)) return;
+	String mcpMessage = String("");
+	int counter = 0;
+  	while(!mcpMessage.endsWith(";"))
+  	{
+  		if(client->available() > 0)
+  			mcpMessage += (char)client->read();
+  		else
+  			counter++;
+  		if(counter == ETHERNET_RETRIES)	
+  		{
+  			return;
+  		}
+  	}
+  	if(!this->isValidMessage(mcpMessage)) return;
+  	connectionType=ETHERNET;
+  	Log::serial(String("recieved Message: "));
+  	Log::serial(mcpMessage);
+  	lastConnection = this->getConnection();
+  	client->stop();
+  	messageCallback(mcpMessage);
+}
+
+
+
+void Connector::checkforSerialMessages()
+{
+  String mcpMessage=String("");
+  int counter = 0;
+  while(!mcpMessage.endsWith(";"))
+  {
+  	if(Serial.available() > 0)
+  	{
+  		mcpMessage += (char)Serial.read();
+  	}
+  	else
+  		counter++;
+  	if(counter == SERIAL_RETRIES)	
+  	{
+  		return;
+  	}
+  }
+  if(!this->isValidMessage(mcpMessage)) return;
+  connectionType=SERIAL;
+  Log::serial(String("recieved Message: "));
+  Log::serial(mcpMessage);
+  messageCallback(mcpMessage);
+  
+}
+void Connector::sendResult(String erg)
+{
+	/*
+	switch(connectionType)
+	{
+  		case SERIAL:
+  			if(erg!=-1)
+  				Serial.print(erg);
+  			break;
+  		case ETHERNET:
+  				client = new Client(this->convertToByteArray(ipdest),13316);
+  				client->connect();
+  				Log::serial("sending message");
+  				if(erg!=-1)
+  				client->println(erg);
+  				client->println();
+  				client->stop();
+  				Log::serial("message sent");
+  			
+  			break;
+  	}
+	*/
+	this->sendResult(erg, ipdest);
+}
+String Connector::getConnection()
+{
+	switch(connectionType)
+	{
+  		case SERIAL:
+  			return String("COM");
+  			break;
+  		case ETHERNET:
+			if(client!=NULL)
+				uint8_t* ip = client->getIp();
+				return String(ip[0]) + "." + String(ip[1]) + "." + String(ip[2]) + "." + String(ip[3]);
+  			break;
+  	}
+	return -1;
+}
+
+String Connector::getLastConnection()
+{
+	Serial.println(lastConnection);
+	Serial.flush();
+	return lastConnection;
+}
+
+void Connector::sendResult(String erg,String ip)
+{
+  	if(ip==String("COM"))
+  	{
+  		Serial.print(erg);
+  	}
+  	else
+  	{
+  		
+  		byte* destination = this->convertToByteArray(ip);
+  		
+  		if(client->connected()) client->stop();
+  		free(client);
+  		client = new Client(destination,13316);
+  		if(client->connect())
+  		{
+  				client->println(erg);
+  				client->stop();
+  		}
+  	}
+}
+byte* Connector::convertToByteArray(String ip)
+{
+	Serial.print(ip);
+  	byte *array = (byte *) malloc(4*sizeof(byte));
+  	
+  	char splitChar = '.';
+  	String current = "";
+  	int counter = 0;
+  	
+  	for (int i = 0; i < ip.length(); i++) {
+		if(ip.charAt(i) == splitChar)
+		{			
+			char charBuf;
+			//current.toCharArray(charBuf, 4);
+  			int part = current.charAt(0);//(int)charBuf;
+  			array[counter] = (byte)part;
+  			counter++;
+			current = String("");
+		}
+		else
+		{
+			current += String(ip.charAt(i));
+		}
+	}
+	array[4] = current.charAt(0);
+  	return array;
+}
+/*
+<?mcp version="1.0"?>
+ <methodCall>
+   <methodName>getTemperature</methodName>
+ </methodCall>
+*/
+//very basic! validation check
+bool Connector::isValidMessage(String msg)
+{
+	return true;
+	/*return msg.startsWith("<?mcp")&&msg.indexOf("<methodCall>")!=-1
+	&& msg.indexOf("<methodName>")!=-1 && msg.indexOf("</methodCall>")!=-1
+	&& msg.indexOf("</methodName>")!=-1;*/
+}

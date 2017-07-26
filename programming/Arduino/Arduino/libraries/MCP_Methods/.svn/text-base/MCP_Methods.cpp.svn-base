@@ -1,0 +1,26 @@
+#include "MCP_Methods.h"
+#include <SPI.h>
+#include <Log.h>
+#include <DeviceManager.h>
+#include <SolidStateRelay.h>
+#include <Led.h>
+
+int MCP_Methods::getTemperature()
+{
+	//TODO Implementation
+	return -1;
+}
+void MCP_Methods::turnOnLed(int deviceId)
+{
+	Log::serial(String("turn on led"));
+	DeviceManager *deviceManager = DeviceManager::getInstance();
+	Led *led = (Led*) deviceManager->getDeviceById(deviceId);
+	led->turnOn();
+}
+void MCP_Methods::turnOnSSR(int deviceId)
+{
+	Log::serial(String("turning on SSR"));
+	DeviceManager *deviceManager = DeviceManager::getInstance();
+	SolidStateRelay *ssr = (SolidStateRelay*) deviceManager->getDeviceById(deviceId);
+	ssr->turnOn();
+}

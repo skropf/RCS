@@ -1,0 +1,11 @@
+package util;
+
+/**
+ *
+ * @author skropf
+ */
+public enum LogStatusEnum {
+    NORMAL,
+    CRITICAL,
+    ERROR
+}

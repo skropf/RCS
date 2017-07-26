@@ -1,0 +1,71 @@
+package entity.device;
+
+import entity.Device;
+import entity.DeviceType;
+import java.io.Serializable;
+import java.util.Arrays;
+import mcp.CallMessage;
+import mcp.administration.MCPSocketWriter;
+
+/**
+ *
+ * @author skropf
+ */
+public class Fan extends Device implements Serializable {
+    
+    private String state;
+    private int humidity;
+    
+    public Fan(int deviceId, String name, String ip, DeviceType deviceType, String currentState) {
+        super(deviceId, name, ip, deviceType, currentState);
+        this.updateCurrentState();
+    }
+    
+    private void updateCurrentState() {
+        this.state = super.getCurrentState("state");
+        this.humidity = Integer.parseInt(super.getCurrentState("humidity"));
+    }
+    
+    public void turnOn() {
+        new MCPSocketWriter(super.getIp().substring(super.getIp().indexOf("(") + 1, super.getIp().indexOf(")"))).send(
+                new CallMessage(super.getDeviceId(), "turnOn", null));
+        
+        state = "on";
+        super.addCurrentState("state=" + state);
+    }
+    
+    public void turnOff() {
+        new MCPSocketWriter(super.getIp().substring(super.getIp().indexOf("(") + 1, super.getIp().indexOf(")"))).send(
+                new CallMessage(super.getDeviceId(), "turnOff", null));
+        
+        state = "off";
+        super.addCurrentState("state=" + state);
+    }
+    
+    public void setHumidity(int humidity) {
+        this.humidity = humidity;
+    }
+    
+    public int getHumidity() {
+        return humidity;
+    }
+    
+    public void setCondition() {
+        new MCPSocketWriter(super.getIp().substring(super.getIp().indexOf("(") + 1, super.getIp().indexOf(")"))).send(
+                new CallMessage(super.getDeviceId(), "setHumidityCondition", Arrays.asList(""+humidity)));
+        
+        super.addCurrentState("humidity=" + humidity);
+    }
+    
+    public void removeCondition() {
+        new MCPSocketWriter(super.getIp().substring(super.getIp().indexOf("(") + 1, super.getIp().indexOf(")"))).send(
+                new CallMessage(super.getDeviceId(), "removeCondition", null));
+        
+        humidity = -1;
+        super.addCurrentState("humidity=" + humidity);
+    }
+    
+    public String getState() {
+        return state;
+    }
+}

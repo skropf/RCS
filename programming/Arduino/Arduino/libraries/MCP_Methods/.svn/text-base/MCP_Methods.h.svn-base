@@ -1,0 +1,15 @@
+#ifndef MCP_Methods_h
+#define MCP_Methods_h
+
+
+
+
+class MCP_Methods
+{
+  public:
+    static int getTemperature();
+    static void turnOnSSR(int);
+    static void turnOnLed(int);
+};
+
+#endif

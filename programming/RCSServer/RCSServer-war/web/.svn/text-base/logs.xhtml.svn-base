@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:form>
+        <!--<p:poll interval="10" listener="{logController.init()}" update="@form" />-->
+        <p:inputTextarea readonly="true"
+                         style="width: 500px; height: 200px; font-family: sans-serif; font-size: 12px; float: right;"
+                         value="#{logController.logs}">
+            <p:resizable handles="e,w,n,se,sw,ne,nw" minWidth="750" minHeight="200" />
+        </p:inputTextarea>
+    </h:form>
+</html>

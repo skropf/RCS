@@ -1,0 +1,18 @@
+#include "Device.h"
+
+int Device::getId()
+ {
+  	return this->deviceId;
+}
+ void Device::setId(int id)
+  {
+  	this->deviceId = id;
+}
+  void Device::setName(String name)
+  {
+  	this->name=name;
+}
+String Device::getName()
+  {
+  	return this->name;
+}

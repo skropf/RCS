@@ -1,0 +1,134 @@
+#include <SdFat.h>
+#include <SPI.h>
+#include <Client.h>
+#include <Ethernet.h>
+#include <Server.h>
+#include <Udp.h>
+#include <Max3421e.h>
+#include <Usb.h>
+#include <AndroidAccessory.h>
+
+
+#include <IPersistable.h>
+#include <SimpleDevice.h>
+#include <Global_MessageId.h>
+#include <MCP_Message.h>
+#include <Connector.h>
+#include <MCP_Interpreter.h>
+#include <MCP_Methods.h>
+#include <Call_Message.h>
+#include <Result_Message.h>
+
+#include <Log.h>
+#include <Loggable.h>
+#include <IO.h>
+#include <IOActor.h>
+#include <IOSensor.h>
+#include <Led.h>
+#include <Device.h>
+#include <DeviceManager.h>
+#include <iterator> 
+#include <list> 
+#include <map>
+#include <SolidStateRelay.h>
+#include <new.cpp>
+#include <IOSensor.h>
+#include <Sensor.h>
+#include <Actor.h>
+#include <IOActor.h>
+#include <avr/io.h>
+#include <UnifiedFactory.h>
+#include <StringUtility.h>
+#include <AlarmSystem.h>
+#include <MovementSensor.h>
+
+Connector *connector;
+MCP_Interpreter interpreter;
+
+void OnMCPMessageRecieved(String msg)
+{
+  String result = interpreter.interprete(msg); 
+  connector->sendResult(result); 
+}
+//#1:1:turnOnSSR:1;
+/*void InitSSR()
+ {
+ SolidStateRelay *ssr = new SolidStateRelay();
+ ssr->setIOPin(1);
+ ssr->setDeviceId(1);
+ ssr->setName("firstSSR");
+ 
+ DeviceManager *deviceManager = DeviceManager::getInstance();
+ deviceManager->addDevice(ssr);
+ }*/
+//#1:1:turnOnLed:2;
+/*void InitLed()
+ {
+ Led *led = new Led();
+ led->setIOPin(13);
+ led->setDeviceId(2);
+ led->setName("firstLed");
+ 
+ DeviceManager *deviceManager = DeviceManager::getInstance();
+ deviceManager->addDevice(led);
+ }*/
+void InitAlarmSystem()
+{
+  MovementSensor* sensor = new MovementSensor();
+  sensor->setIOPin(3);
+  sensor->setId(3);
+  Log::serial("sensor init");
+  SolidStateRelay *ssr = new SolidStateRelay(12,false);
+  ssr->setIOPin(1);
+  ssr->setId(2);
+  Log::serial("ssr init");
+  DeviceManager *deviceManager = DeviceManager::getInstance();
+  deviceManager->addActor(ssr);
+  deviceManager->addSensor(sensor);
+  Log::serial("devicemanager add");
+  AlarmSystem* alarmSystem = new AlarmSystem();
+  alarmSystem->setName("AlarmSystem");
+  alarmSystem->setId(1);
+  alarmSystem->setSirene(ssr);
+  alarmSystem->setRangeSensor(sensor);
+  deviceManager->addDevice(alarmSystem);
+  Log::serial("alarmsystem init");
+}
+
+void setup()
+{
+  connector = Connector::getInstance();
+  connector->setMessageCallback(&OnMCPMessageRecieved);
+  connector->initSerial();
+  connector->initEthernetShield();
+  InitAlarmSystem();
+  
+ /* std::vector<String> list=StringUtility::split("#5:1:1:join;",':');
+  std::vector<String>::const_iterator it;
+	for(it=list.begin();it!=list.end();it++)
+	{
+		Log::serial(*it);
+	}
+  std::vector<String> list2=StringUtility::split("#6:1:1:join;",':');
+  for(it=list2.begin();it!=list2.end();it++)
+	{
+		Log::serial(*it);
+	}*/
+  
+  //InitSSR();
+  //InitLed();
+  Log::serial(String("after setup"));
+}
+
+void loop()
+{
+  //Serial.println("loop\n");
+  connector->checkforSerialMessages();
+
+  //connector->checkforEthernetMessages();
+  AlarmSystem* alarmSystem = (AlarmSystem*) DeviceManager::getInstance()->getDeviceById(1);
+  alarmSystem->update();
+}
+
+
+

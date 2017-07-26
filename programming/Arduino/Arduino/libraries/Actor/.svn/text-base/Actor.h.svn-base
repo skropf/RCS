@@ -1,0 +1,20 @@
+#ifndef Actor_h
+#define Actor_h
+
+#include <Device.h>
+#include <SPI.h>
+#include <IOActor.h>
+#include <iterator> 
+#include <list> 
+#include <IPersistable.h>
+
+class Actor : public IPersistable
+{
+  public:
+  virtual int getId();
+  void setId(int);
+  protected:
+  int id;
+};
+
+#endif

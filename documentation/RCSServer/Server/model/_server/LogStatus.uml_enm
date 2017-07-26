@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes'?>
+<xmi:XMI xmi:version='2.1' xmlns:xmi='http://schema.omg.org/spec/XMI/2.1' xmlns:uml='http://schema.omg.org/spec/UML/2.1.1/uml.xml'>
+ <documentation exporter='Oracle JDeveloper' exporterVersion='11.1.2.1.0'/>
+ <uml:Enumeration xmi:uuid='urn:uuid:b4e17a47-d68a-4d8d-90a8-3555b063c9bf'
+   isAbstract='false'
+   isLeaf='false'
+   name='LogStatus'
+   visibility='public'>
+  <ownedLiteral xmi:uuid='urn:uuid:5f13e2c0-031f-4f79-b918-741315e7a810'
+    name='DEBUG'
+    visibility='public'/>
+  <ownedLiteral xmi:uuid='urn:uuid:f8b49d38-2148-47db-8cd2-7d6c8262d522'
+    name='WARNING'
+    visibility='public'/>
+  <ownedLiteral xmi:uuid='urn:uuid:dc007592-54b5-4a13-a637-bad8ce339429'
+    name='ERROR'
+    visibility='public'/>
+ </uml:Enumeration>
+</xmi:XMI>

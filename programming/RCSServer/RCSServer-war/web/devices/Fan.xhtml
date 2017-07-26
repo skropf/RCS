@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <script type="text/javascript">
+        initFan('rotateDiv#{deviceController.selectedDevice.deviceId}', 'pictures/fan.png')
+    </script>
+    <c:if test="#{deviceController.currentFan.state eq 'on'}">
+        <script type="text/javascript">
+            startFan();
+        </script>
+    </c:if>
+    <c:if test="#{deviceController.currentFan.state eq 'off'}">
+        <script type="text/javascript">
+            stopFan();
+        </script>
+    </c:if>
+
+    <p:panelGrid columns="3" style="text-align: center;">
+        <div id="rotateDiv#{deviceController.selectedDevice.deviceId}" />
+
+        <c:choose>
+            <c:when test="#{deviceController.currentFan.state eq 'off'}">
+                <p:commandButton value="Turn On"
+                                 action="#{deviceController.currentFanTurnOn()}"
+                                 onclick="startFan();"
+                                 update="@form" />
+            </c:when>
+            <c:when test="#{deviceController.currentFan.state eq 'on'}">
+                <p:commandButton value="Turn Off"
+                                 action="#{deviceController.currentFanTurnOff()}"
+                                 onclick="stopFan();"
+                                 update="@form" />
+            </c:when>
+        </c:choose>
+
+        <h:outputLabel />
+
+        <h:outputLabel value="Current temperature:" />
+
+        <p:column>
+            <p:inputText disabled="true"
+                         value="#{deviceController.sensorDevice.temperature}"
+                         size="3" />
+
+            <h:outputLabel value="°C" />
+        </p:column>
+
+        <h:outputLabel />
+
+        <h:outputLabel value="Temperature condition:" />
+        <p:column>
+            <p:inputText id="fanHumidityCondition#{deviceController.selectedDevice.deviceId}"
+                         required="number"
+                         type="number"
+                         maxlength="3"
+                         size="3"
+                         value="#{deviceController.currentFan.temperature}" />
+
+            <h:outputLabel value="°C" />
+        </p:column>
+
+        <p:column>
+            <div align="center">
+                <p:commandButton value="Set condition"
+                                 action="#{deviceController.currentFanSetCondition()}" />
+                <br />
+                <p:commandButton value="Remove condition"
+                                 action="#{deviceController.currentFanRemoveCondition()}"
+                                 update="@form" />
+            </div>
+        </p:column>
+    </p:panelGrid>
+</html>

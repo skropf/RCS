@@ -1,0 +1,48 @@
+#ifndef DeviceManager_h
+#define DeviceManager_h
+
+#include <Device.h>
+#include <Sensor.h>
+#include <Actor.h>
+#include <iterator> 
+#include <list> 
+#include <map>
+
+class DeviceManager
+{
+  public:
+    static DeviceManager * getInstance();
+    void addDevice(Device*);
+    void addSensor(Sensor*);
+    void addActor(Actor*);
+    Sensor* getSensorById(int id);
+    Actor* getActorById(int id);
+    Device* getDeviceById(int id);
+    int writeToSdCard();
+    int readFromSdCard();
+  private:
+  	static DeviceManager *instance;
+  	struct ltDev
+	{
+  		bool operator()(int s1, int s2)
+  		{
+    		if (s1 == s2)
+    			return 0;
+    		if (s1 > s2)
+    			return 1;
+    		else
+    			return -1;
+  		}
+	};
+  	std::map<int, Device*, ltDev> deviceMap;
+  	std::map<int, Sensor*, ltDev> sensorMap;
+  	std::map<int, Actor*, ltDev> actorMap;
+  	
+	int persist(char *,void *);
+	int load(char *, void*);
+	void reinitClassArray();
+  protected:
+  	DeviceManager() {};
+};
+
+#endif

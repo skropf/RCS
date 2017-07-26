@@ -1,0 +1,10 @@
+#include "Sensor.h"
+
+void Sensor::setId(int id)
+{
+	this->id =id;
+}
+int Sensor::getId()
+{
+	return this->id;
+}

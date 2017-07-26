@@ -1,0 +1,17 @@
+#ifndef Led_h
+#define Led_h
+
+#include <IOActor.h>
+
+class Led : public IOActor
+{
+  public:
+  	void setState(int);
+  	int getState();
+  	void turnOn();
+  	void turnOff();
+  	Led(int);
+  	Led(int,bool);
+};
+
+#endif

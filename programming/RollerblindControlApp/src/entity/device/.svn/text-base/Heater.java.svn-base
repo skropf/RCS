@@ -1,0 +1,71 @@
+package entity.device;
+
+import entity.Device;
+import entity.DeviceType;
+import java.io.Serializable;
+import java.util.Arrays;
+import mcp.CallMessage;
+import mcp.administration.MCPSocketWriter;
+
+/**
+ *
+ * @author skropf
+ */
+public class Heater extends Device implements Serializable {
+
+    private String state;
+    private int temperature;
+    
+    public Heater(int deviceId, String name, String ip, DeviceType deviceType, String currentState) {
+        super(deviceId, name, ip, deviceType, currentState);
+        this.updateCurrentState();
+    }
+    
+    private void updateCurrentState() {
+        this.state = super.getCurrentState("state");
+        this.temperature = Integer.parseInt(super.getCurrentState("temperature"));
+    }
+    
+    public void turnOn() {
+        new MCPSocketWriter(super.getIp().substring(super.getIp().indexOf("(") + 1, super.getIp().indexOf(")"))).send(
+                new CallMessage(super.getDeviceId(), "turnOn", null));
+        
+        state = "on";
+        super.addCurrentState("state=" + state);
+    }
+    
+    public void turnOff() {
+        new MCPSocketWriter(super.getIp().substring(super.getIp().indexOf("(") + 1, super.getIp().indexOf(")"))).send(
+                new CallMessage(super.getDeviceId(), "turnOff", null));
+        
+        state = "off";
+        super.addCurrentState("state=" + state);
+    }
+    
+    public void setTemperature(int temperature) {
+        this.temperature = temperature;
+    }
+    
+    public int getTemperature() {
+        return temperature;
+    }
+    
+    public void setCondition() {
+        new MCPSocketWriter(super.getIp().substring(super.getIp().indexOf("(") + 1, super.getIp().indexOf(")"))).send(
+                new CallMessage(super.getDeviceId(), "setTemperatureCondition", Arrays.asList(""+temperature)));
+        
+        super.addCurrentState("temperature=" + temperature);
+    }
+    
+    public void removeCondition() {
+        new MCPSocketWriter(super.getIp().substring(super.getIp().indexOf("(") + 1, super.getIp().indexOf(")"))).send(
+                new CallMessage(super.getDeviceId(), "removeCondition", null));
+        
+        temperature = -1;
+        super.addCurrentState("temperature=" + temperature);
+    }
+    
+    public String getState() {
+        return state;
+    }
+}

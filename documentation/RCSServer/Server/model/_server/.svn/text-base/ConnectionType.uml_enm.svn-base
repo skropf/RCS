@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes'?>
+<xmi:XMI xmi:version='2.1' xmlns:xmi='http://schema.omg.org/spec/XMI/2.1' xmlns:uml='http://schema.omg.org/spec/UML/2.1.1/uml.xml'>
+ <documentation exporter='Oracle JDeveloper' exporterVersion='11.1.2.1.0'/>
+ <uml:Enumeration xmi:uuid='urn:uuid:84886ae8-ec62-4a8e-bb2e-b6c0320f3dfb'
+   isAbstract='false'
+   isLeaf='false'
+   name='ConnectionType'
+   visibility='public'>
+  <ownedLiteral xmi:uuid='urn:uuid:ab849b51-0ed6-4c84-893b-85b3f3d059ef'
+    name='COM'
+    visibility='public'/>
+  <ownedLiteral xmi:uuid='urn:uuid:75221901-df42-484c-8ab0-dae898af4191'
+    name='ETHERNET'
+    visibility='public'/>
+  <ownedLiteral xmi:uuid='urn:uuid:e2bd518b-d9ad-4f55-a85d-1ca81e9acec6'
+    name='ADK'
+    visibility='public'/>
+ </uml:Enumeration>
+</xmi:XMI>

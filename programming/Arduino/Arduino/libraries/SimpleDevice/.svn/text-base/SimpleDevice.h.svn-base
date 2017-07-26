@@ -1,0 +1,29 @@
+#ifndef SimpleDevice_h
+#define SimpleDevice_h
+
+#include <SolidStateRelay.h>
+#include <iterator> 
+#include <list> 
+#include <vector>
+#include <IPersistable.h>
+
+
+class SimpleDevice : public Device
+{
+	public:
+  	String turnOn(std::vector<String>);
+  	String turnOff(std::vector<String>);
+  	void setSolidStateRelay(SolidStateRelay *ssr);
+  	SolidStateRelay * getSolidStateRelay();
+  	virtual void update();
+  	virtual String callMethod(String methodName,std::vector<String> params);
+  	
+  	virtual String saveObject();
+  	virtual IPersistable* cloneWithParams(String);
+  	virtual String getClassName(){ return String("SimpleDevice");};
+  	
+  	private:
+  	SolidStateRelay* ssr;
+};
+
+#endif

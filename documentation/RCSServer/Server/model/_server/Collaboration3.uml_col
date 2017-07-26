@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes'?>
+<xmi:XMI xmi:version='2.1' xmlns:xmi='http://schema.omg.org/spec/XMI/2.1' xmlns:uml='http://schema.omg.org/spec/UML/2.1.1/uml.xml'>
+ <documentation exporter='Oracle JDeveloper' exporterVersion='11.1.2.1.0'/>
+ <uml:Collaboration xmi:uuid='urn:uuid:df81ba67-1946-4358-8877-5b0a89ffc8c4'
+   isAbstract='false'
+   isLeaf='false'
+   name='Collaboration3'
+   visibility='public'>
+  <collaborationRole href='urn:uuid:dc0d0375-81e7-43e8-8ce7-8ce218f95baf'/>
+  <collaborationRole href='urn:uuid:9ad26c44-f0d2-4350-afb4-5cb3c0e55207'/>
+  <collaborationRole href='urn:uuid:cbc8cef6-2f1f-469d-b5fe-516b596e0e91'/>
+  <ownedAttribute xmi:uuid='urn:uuid:dc0d0375-81e7-43e8-8ce7-8ce218f95baf'
+    isDerived='false'
+    isDerivedUnion='false'
+    isLeaf='false'
+    isOrdered='false'
+    isReadOnly='false'
+    isStatic='false'
+    isUnique='true'
+    name='SOAP Client'
+    aggregation='none'/>
+  <ownedAttribute xmi:uuid='urn:uuid:9ad26c44-f0d2-4350-afb4-5cb3c0e55207'
+    isDerived='false'
+    isDerivedUnion='false'
+    isLeaf='false'
+    isOrdered='false'
+    isReadOnly='false'
+    isStatic='false'
+    isUnique='true'
+    name='Java EE Server'
+    aggregation='none'/>
+  <ownedAttribute xmi:uuid='urn:uuid:cbc8cef6-2f1f-469d-b5fe-516b596e0e91'
+    isDerived='false'
+    isDerivedUnion='false'
+    isLeaf='false'
+    isOrdered='false'
+    isReadOnly='false'
+    isStatic='false'
+    isUnique='true'
+    name=''
+    aggregation='none'/>
+  <ownedBehavior xmi:type='uml:Interaction' xmi:uuid='urn:uuid:cf44e1a4-8da4-4169-98fc-6ab943d2ef8f'
+    isAbstract='false'
+    isActive='false'
+    isLeaf='false'
+    isReentrant='false'
+    name='SOAP Connection'
+    visibility='public'>
+   <lifeline xmi:uuid='urn:uuid:e2d35cfc-4d66-431b-b3b7-6cce09321b90'
+     name='Lifeline1'>
+    <represents href='urn:uuid:dc0d0375-81e7-43e8-8ce7-8ce218f95baf'/>
+   </lifeline>
+   <lifeline xmi:uuid='urn:uuid:b636dbcf-284c-49fc-9eef-ed8bda37e1c4'
+     name='Lifeline2'>
+    <represents href='urn:uuid:9ad26c44-f0d2-4350-afb4-5cb3c0e55207'/>
+   </lifeline>
+   <lifeline xmi:uuid='urn:uuid:35f11cac-c4ad-4331-8909-5528e2e618c9'
+     name='Lifeline3'>
+    <represents href='urn:uuid:cbc8cef6-2f1f-469d-b5fe-516b596e0e91'/>
+   </lifeline>
+  </ownedBehavior>
+ </uml:Collaboration>
+</xmi:XMI>

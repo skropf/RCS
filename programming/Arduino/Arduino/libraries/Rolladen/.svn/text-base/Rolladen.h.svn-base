@@ -1,0 +1,14 @@
+#ifndef Rolladen_h
+#define Rolladen_h
+
+
+
+
+class Rolladen //: public Device
+{
+    String saveObject();
+  	void loadObject(String);
+  	int getId();
+};
+
+#endif

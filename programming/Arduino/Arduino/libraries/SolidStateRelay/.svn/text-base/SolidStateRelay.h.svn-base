@@ -1,0 +1,31 @@
+#ifndef SolidStateRelay_h
+#define SolidStateRelay_h
+
+
+#include <Actor.h>
+
+
+class SolidStateRelay: public Actor
+{
+  public:
+  	void turnOn();
+    void turnOff();
+    SolidStateRelay(int);
+    SolidStateRelay(int,bool);
+    
+    
+    virtual String saveObject();
+  	virtual IPersistable* cloneWithParams(String);
+  	virtual String getClassName();
+    
+  	void setIOPin(int);
+    int getIOPin();
+  	void setState(int);
+    int getState();
+    protected:
+    int lastState;
+    private:
+    int pin;
+};
+
+#endif

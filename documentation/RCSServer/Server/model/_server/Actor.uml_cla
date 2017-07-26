@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes'?>
+<xmi:XMI xmi:version='2.1' xmlns:xmi='http://schema.omg.org/spec/XMI/2.1' xmlns:uml='http://schema.omg.org/spec/UML/2.1.1/uml.xml'>
+ <documentation exporter='Oracle JDeveloper' exporterVersion='11.1.2.1.0'/>
+ <uml:Class xmi:uuid='urn:uuid:d8a3808c-856b-41c1-8b48-f02b91980fcf'
+   isAbstract='false'
+   isActive='false'
+   isLeaf='false'
+   name='Actor'
+   visibility='public'>
+  <ownedAttribute xmi:uuid='urn:uuid:ed1f4f7e-43ec-4104-a85a-71bc77e6ad8a'
+    isDerived='false'
+    isDerivedUnion='false'
+    isLeaf='false'
+    isOrdered='false'
+    isReadOnly='false'
+    isStatic='false'
+    isUnique='true'
+    name='id'
+    aggregation='none'
+    visibility='private'>
+   <type href='mof:/int:uml:Type'/>
+   <lowerValue xmi:type='uml:LiteralInteger' xmi:uuid='urn:uuid:e0192f5c-fc60-465c-a427-6b597bb0520c'
+     value='1'
+     visibility='public'/>
+   <upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:uuid='urn:uuid:1e3333a9-eb23-4894-874e-4e0f96d23ec5'
+     value='1'
+     visibility='public'/>
+  </ownedAttribute>
+  <ownedAttribute xmi:uuid='urn:uuid:77a38ae3-32a7-4600-b1f7-efa206b96b16'
+    isDerived='false'
+    isDerivedUnion='false'
+    isLeaf='false'
+    isOrdered='false'
+    isReadOnly='false'
+    isStatic='false'
+    isUnique='true'
+    name='name'
+    aggregation='none'
+    visibility='private'>
+   <type href='mof:/char*:uml:Type'/>
+   <lowerValue xmi:type='uml:LiteralInteger' xmi:uuid='urn:uuid:c605198d-e0df-49f7-aaf3-a4a21186b27a'
+     value='1'
+     visibility='public'/>
+   <upperValue xmi:type='uml:LiteralUnlimitedNatural' xmi:uuid='urn:uuid:fc2f81e3-781d-4c2e-aff1-64282a57dec0'
+     value='1'
+     visibility='public'/>
+  </ownedAttribute>
+ </uml:Class>
+</xmi:XMI>

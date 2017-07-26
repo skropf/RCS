@@ -1,0 +1,20 @@
+#include <SPI.h>
+#include "Log.h"
+
+void Log::verbose(char *)
+{
+	//TODO Implementation
+}
+void Log::debug(char *)
+{
+	//TODO Implementation
+}
+void Log::error(char *)
+{
+	//TODO Implementation
+}
+void Log::serial(String arg)
+{
+	Serial.println(arg);
+	Serial.flush();
+}

@@ -1,0 +1,10 @@
+#include "Actor.h"
+
+void Actor::setId(int id)
+{
+	this->id =id;
+}
+int Actor::getId()
+{
+	return this->id;
+}

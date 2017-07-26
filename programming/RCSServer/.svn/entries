@@ -1,0 +1,74 @@
+10
+
+dir
+168
+https://subversionneu.htl-leonding.ac.at/svn/2011roomControllingSystem/programming/RCSServer
+https://subversionneu.htl-leonding.ac.at/svn/2011roomControllingSystem
+
+
+
+2012-05-06T15:18:39.499670Z
+167
+simon.kropf
+has-props
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+1b221239-1faf-4aca-8ba4-454c8bf256e3
+
+RCSServer-ejb
+dir
+
+RCSServer-war
+dir
+
+build.xml
+file
+
+
+
+
+2012-05-15T19:56:15.000000Z
+b42de05802559afe13c4fb2a7826d2f6
+2012-02-21T16:30:16.901537Z
+132
+simon.kropf
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2742
+
+nbproject
+dir
+
+src
+dir
+

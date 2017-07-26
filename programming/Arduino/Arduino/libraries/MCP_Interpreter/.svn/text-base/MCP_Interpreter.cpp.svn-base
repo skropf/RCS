@@ -1,0 +1,81 @@
+
+#include <SPI.h>
+
+#include <MCP_Methods.h>
+
+#include <MCP_Message.h>
+#include <Result_Message.h>
+#include <Call_Message.h>
+#include <Log.h>
+#include <Device.h>
+#include <DeviceManager.h>
+#include <iterator> 
+#include <list> 
+#include <vector>
+#include <StringUtility.h>
+
+#include "MCP_Interpreter.h"
+
+
+String MCP_Interpreter::interprete(String mcpMessage)
+{
+	std::vector<String> elems;
+	StringUtility::split(mcpMessage,':',elems);
+	
+	char t = elems[1].charAt(0);
+	MCP_Message::MessageType type = (MCP_Message::MessageType) (t - '0');
+	
+	Log::serial("interprete type=");
+	Log::serial(type);
+	switch(type)
+	{
+		case MCP_Message::Call:
+			return this->handleCallMessage(elems);
+			break;
+		default:
+			break;
+	}
+	return String("MessageType not right");
+}
+String MCP_Interpreter::handleCallMessage(const std::vector<String> &elems)
+{
+	Log::serial("parsing callmsg");
+	
+	Log::serial("Elems:");
+	Log::serial(elems[0]);
+	Log::serial(elems[1]);
+	Log::serial(elems[2]);
+	Log::serial(elems[3]);
+	
+	
+	Call_Message callmsg(elems);
+
+	Log::serial("Device ID:");
+	Log::serial(callmsg.getDevId());
+	if(callmsg.getDevId()>0) // Device ID gegeben
+	{
+		Device *dev = DeviceManager::getInstance()->getDeviceById(callmsg.getDevId());
+		Log::serial("found Device with id:");
+		Log::serial(dev->getId());
+		Log::serial(callmsg.getMethodName());
+		String erg = dev->callMethod(callmsg.getMethodName(),callmsg.getParams());
+		Log::serial("Ergebnis:");
+		Log::serial(erg);
+		
+		if(erg==-1) return -1;
+		Result_Message *result = new Result_Message();
+		result->setReturnValue(erg);
+		return result->getMessage();
+	}
+}
+
+/*String MCP_Interpreter::getMethodName(String xmlMessage)
+{
+	String xmlString = String(xmlMessage);
+	int begin = xmlString.indexOf("<methodName>");
+	//length of <methodname>
+  	begin += 12;
+  	int end = xmlString.indexOf("</methodName>");
+  	return xmlString.substring(begin,end);
+	//return "getTemperature";
+};*/

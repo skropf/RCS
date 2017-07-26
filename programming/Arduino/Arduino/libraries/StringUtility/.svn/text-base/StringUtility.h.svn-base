@@ -1,0 +1,20 @@
+#ifndef StringUtility_h
+#define StringUtility_h
+
+
+#include <IOActor.h>
+#include <Actor.h>
+#include <iterator> 
+#include <list> 
+#include <vector>
+
+
+class StringUtility
+{
+	public:
+  	static void split(String input,char splitChar,std::vector<String>& params);
+  	static String merge(std::vector<String>,char);
+  	static int ConvertStringToInt(String);
+};
+
+#endif

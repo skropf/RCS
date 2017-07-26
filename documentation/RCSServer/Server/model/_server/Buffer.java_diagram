@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes'?>
+<xmi:XMI xmi:version='2.1' xmlns:xmi='http://schema.omg.org/spec/XMI/2.1' xmlns:DI='http://xmlns.omg.org/DI/2.0'>
+  <documentation exporter='Oracle JDeveloper' exporterVersion='11.1.2.1.0'/>
+  <DI:Diagram xmi:id='id94daadcc-c5ab-4b52-9eea-93cbe481521d' zoom='0.0'>
+    <property key='EdgeCrossingType' value='0'/>
+    <property key='PageOrientation' value='1'/>
+    <property key='snapToGrid' value='true'/>
+    <property key='ContainerLayoutStyle' value='1'/>
+    <property key='maxShapeWidth' value='200'/>
+    <property key='gridSize' value='15'/>
+    <property key='showNavIconWhenBothEnds' value='false'/>
+    <property key='DiagramLayoutStyle' value='1'/>
+    <property key='antialiasText' value='true'/>
+    <property key='showNonNavigable' value='false'/>
+    <property key='minLayoutDistance' value='100'/>
+    <property key='maxEntriesInShape' value='10'/>
+    <property key='showClassifierOwnedEnds' value='false'/>
+    <property key='showGrid' value='true'/>
+    <property key='PaperOrientation' value='Portrait'/>
+    <property key='PrintAreaX' value='0.0'/>
+    <property key='PrintAreaY' value='0.0'/>
+    <property key='PrintAreaWidth' value='0.0'/>
+    <property key='PrintAreaHeight' value='0.0'/>
+    <semanticModel xmi:type='DI:SimpleSemanticModelBridge' typeInfo='java_diagram'/>
+  </DI:Diagram>
+</xmi:XMI>

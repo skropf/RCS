@@ -1,0 +1,60 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package entity.device;
+
+import entity.Device;
+import entity.DeviceType;
+import mcp.CallMessage;
+import mcp.administration.MCPSocketWriter;
+
+/**
+ *
+ * @author skropf
+ */
+public class SensorDevice extends Device {
+    
+    private int temperature;
+    private int brightness;
+    private int movement;
+    
+    
+    public SensorDevice(int deviceId, String name, String ip, DeviceType deviceType, String currentState) {
+        super(deviceId, name, ip, deviceType, currentState);
+        this.updateCurrentState();
+    }
+    
+    private void updateCurrentState() {
+        this.temperature = Integer.parseInt(super.getCurrentState("temperature"));
+        this.brightness = Integer.parseInt(super.getCurrentState("brightness"));
+        this.movement = Integer.parseInt(super.getCurrentState("movement"));
+    }
+
+    public int getBrightness() {
+        return brightness;
+    }
+
+    public int getMovement() {
+        return movement;
+    }
+
+    public int getTemperature() {
+        return temperature;
+    }
+    
+    public void brightnessRCS() {
+        new MCPSocketWriter(super.getIp().substring(super.getIp().indexOf("(") + 1, super.getIp().indexOf(")"))).send(
+                new CallMessage(super.getDeviceId(), "getBrightness", null));
+    }
+
+    public void movementRCS() {
+        new MCPSocketWriter(super.getIp().substring(super.getIp().indexOf("(") + 1, super.getIp().indexOf(")"))).send(
+                new CallMessage(super.getDeviceId(), "getMovement", null));
+    }
+
+    public void temperatureRCS() {
+        new MCPSocketWriter(super.getIp().substring(super.getIp().indexOf("(") + 1, super.getIp().indexOf(")"))).send(
+                new CallMessage(super.getDeviceId(), "getTemperature", null));
+    }
+}

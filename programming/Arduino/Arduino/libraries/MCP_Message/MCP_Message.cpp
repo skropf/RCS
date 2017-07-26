@@ -1,0 +1,63 @@
+#include <Log.h>
+#include "MCP_Message.h"
+#include <Global_MessageId.h>
+#include <iterator> 
+#include <list> 
+#include <vector>
+#include <StringUtility.h>
+
+MCP_Message::MCP_Message()
+{
+}
+void MCP_Message::setType(MCP_Message::MessageType param)
+{
+  this->type = param;
+}
+int MCP_Message::getId()
+{
+	return this->id;
+}
+MCP_Message::MCP_Message(const std::vector<char*>& params)
+{
+	this->parse(params);
+}
+MCP_Message::MessageType MCP_Message::getMessageType()
+{
+	return this->type;
+}
+char* MCP_Message::getMessage()
+{
+	return this->message;
+}
+void MCP_Message::parse(const std::vector<char*>& elems)
+{
+	Log::serial("MessageId:");
+	Log::serial(elems[0]);
+	this->id = atoi(elems[0]);
+	Log::serial(elems[0]);
+  	Global_MessageId::getInstance()->setId(id);
+	
+	
+	char t = elems[1][0];
+	this->type = (MCP_Message::MessageType) (t - '0');
+	
+	/*String msgId = String("");
+  	char charArray[255];
+  	msg.toCharArray(charArray,255);
+  	int counter = 1;
+  	while(charArray[counter] !=':')
+  	{
+  		msgId += charArray[counter];
+  		counter++;
+  	}
+  	char charBuf[50];
+    msgId.toCharArray(charBuf, 50);
+  	this->id = atoi(charBuf);
+  	free(charBuf);
+  	Global_MessageId::getInstance()->setId(id);
+  	
+  	char type = this->message.charAt(++counter);
+	this->type = (MCP_Message::MessageType) (type - '0');
+	return (counter+2);*/
+
+}

@@ -1,0 +1,14 @@
+#ifndef Log_h
+#define Log_h
+
+
+class Log
+{
+  public:
+    static void verbose(char *);
+    static void error(char *);
+    static void debug(char *);
+    static void serial(String);
+};
+
+#endif

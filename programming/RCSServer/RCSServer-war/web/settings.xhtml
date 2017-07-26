@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:form>
+        <p:growl id="settingsMessages" showDetail="true" />
+
+
+        <h:panelGrid width="40%">
+            <p:dataTable var="mcpPlace"
+                         value="#{settingsController.MCPPlaceList}"
+                         style="font-family: sans-serif; font-size: 12px;">
+
+                <p:column headerText="Place">
+                    <div align="center">
+                        <p:inputText value="#{mcpPlace.place}" size="30" />
+                    </div>
+                </p:column>
+
+                <p:column headerText="IP - Address">
+                    <div align="center">
+                        <p:inputText value="#{mcpPlace.ip}" />
+                    </div>
+                </p:column>
+
+                <p:column headerText="Logging activated">
+                    <div align="center">
+                        <p:selectBooleanCheckbox value="#{mcpPlace.loggingActivated}" />
+                    </div>
+                </p:column>
+
+                <p:column>
+                    <p:commandLink value="Delete place"
+                                   update="@form"
+                                   style="font-family: sans-serif; font-size: 10px;"
+                                   action="#{settingsController.removeMCPPlace(mcpPlace.id)}" />
+                </p:column>
+            </p:dataTable>
+            <p:commandLink value="Add place"
+                           update="@form"
+                           style="font-family: sans-serif; font-size: 10px;"
+                           action="#{settingsController.addMCPPlace()}" />
+            <br />
+
+            <h:column>
+                <p:commandButton value="Save changes"
+                                 update="@form"
+                                 action="#{settingsController.saveList()}"
+                                 style="font-family: sans-serif; font-size: 12px; float: left;" />
+
+                <p:commandButton value="Retrieve devices"
+                                 action="#{settingsController.retrieveDevices()}"
+                                 style="font-family: sans-serif; font-size: 12px; float: right;" />
+            </h:column>
+        </h:panelGrid>
+    </h:form>
+</html>

@@ -1,0 +1,103 @@
+#include "SimpleDevice.h"
+#include <IPersistable.h>
+#include <StringUtility.h>
+#include <DeviceManager.h>
+
+typedef String (SimpleDevice::*pt2Member)(std::vector<String>);
+
+pt2Member functionArray[1] = {&SimpleDevice::turnOn};
+String functionNames[1] =  	 {String("turnOn")};
+
+template<typename T, int size>
+int GetArrayLength(T(&)[size]){return size;}
+
+
+IPersistable* cloneWithParams(String)
+{
+	//if(this->ssr==-1) Log!
+	return NULL;
+}
+String SimpleDevice::turnOn(std::vector<String> params)
+{
+	//if(this->ssr==-1) Log!
+	ssr->turnOn();
+	return "1";
+}
+String SimpleDevice::turnOff(std::vector<String> params)
+{
+	//if(this->ssr==-1) Log!
+	ssr->turnOff();
+	return "1";
+}
+SolidStateRelay* SimpleDevice::getSolidStateRelay()
+{
+	return this->ssr;
+}
+
+void SimpleDevice::setSolidStateRelay(SolidStateRelay* ssr)
+{
+	this->ssr = ssr;
+}
+String SimpleDevice::callMethod(String methodName,std::vector<String> params)
+{
+	for(int i = 0;i<GetArrayLength(functionNames);i++)
+	{
+		if(functionNames[i] == methodName)
+		{
+			return (this->*functionArray[i])(params);
+		}
+	}
+}
+String SimpleDevice::saveObject()
+{
+	std::vector<String>* params = new std::vector<String>();
+	params->push_back(String(this->getId()));
+	params->push_back(String(this->getName()));
+	params->push_back(String(this->getSolidStateRelay()->getId()));
+	/*//parsing Sensors
+	params.push_back(String(this->getSensorlist()->getCount());
+	std::vector<Sensor>::const_iterator sensorIt;
+	for(it=this->getSensorList()->begin();sensorIt!=this->getSensorList()->end();it++)
+      {
+		params.push_back(String(sensorIt->getId()));
+	  }
+	  free(&sensorIt);
+	  
+	//parsing Actors
+	params.push_back(String(this->getActorlist()->getCount());
+	std::vector<Actor>::const_iterator actorIt;
+	for(it=this->getActorList()->begin();actorIt!=this->getActorList()->end();it++)
+      {
+		params.push_back(String(actorIt->getId()));
+	  }
+	free(&sensorId);*/
+	
+	return StringUtility::merge(*params,':');
+}
+IPersistable* SimpleDevice::cloneWithParams(String arg)
+{
+	SimpleDevice* newInstance = new SimpleDevice();
+	std::vector<String> params;
+	StringUtility::split(arg,':',params);
+	char charBuf[50];
+    params[0].toCharArray(charBuf, 50);
+  	int id = atoi(charBuf);
+  	free(charBuf);
+	newInstance->setId(id);
+	newInstance->setName(params[1]);
+	newInstance->setSolidStateRelay((SolidStateRelay *)DeviceManager::getInstance()->getActorById(id));
+	/*//parsing Sensors
+	int count = atoi(params[2]);
+	for(int i=2;i<count+2;i++)
+	{
+		char charBuf[50];
+    	msgId.toCharArray(charBuf, 50);
+  		int id = atoi(charBuf);
+  		free(charBuf);
+		DeviceManager::getInstance->getSensorbyId(id);
+	}*/
+	return newInstance;
+}
+void SimpleDevice::update()
+{
+}

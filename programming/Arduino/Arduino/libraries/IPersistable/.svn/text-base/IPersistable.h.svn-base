@@ -1,0 +1,16 @@
+#ifndef IPersistable_h
+#define IPersistable_h
+
+
+#include <SPI.h>
+
+class IPersistable
+{
+  public:
+  	virtual String saveObject()=0;
+  	virtual IPersistable* cloneWithParams(String)=0;
+  	virtual int getId()=0;
+  	virtual String getClassName()=0;
+};
+
+#endif

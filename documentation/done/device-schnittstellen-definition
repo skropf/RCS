@@ -1,0 +1,51 @@
+DEVICE-SCHNITTSTELLEN-DEFINITION
+
+
+ROLLERBLIND
+Methoden:
+setPosition(int position)				//Position setzen
+getPosition()							//Position holen
+setBrightnessCondition(int brightness)	//Helligkeitsbedingung setzen
+getBrightnessCondition()				//Helligkeitsbedingung holen
+removeCondition()						//Bedingung löschen
+
+
+LIGHT
+turnOn()								//einschalten
+turnOff()								//ausschalten
+setBrightnessCondition(int brightness)	//Helligkeitsbedingung setzen
+getBrightnessCondition()				//Helligkeitsbedingung holen
+removeCondition()						//Bedingung löschen
+getStatus()								//ob ein-/ausgeschalten
+
+
+POWEROUTLET
+turnOn()								//einschalten
+turnOff()								//ausschalten
+getStatus()								//ob ein-/ausgeschalten
+
+
+FAN
+turnOn()								//einschalten
+turnOff()								//ausschalten
+getStatus()								//ob ein-/ausgeschalten
+setHumidityCondition(int humidity)		//Luftfeuchtigkeitsbedingung setzen
+removeCondition()						//Bedingung löschen
+
+
+HEATER
+turnOn()								//einschalten
+turnOff()								//ausschalten
+getStatus()								//ob ein-/ausgeschalten
+setTemperatureCondition(int temperature)//Temperaturbedingung setzen
+getTemperatureCondition()				//Temperaturbedingung holen
+removeCondition()						//Bedingung löschen
+
+
+ALARMSYSTEM
+turnOn()								//einschalten
+turnOff()								//ausschalten
+getStatus()								//ob ein-/ausgeschalten
+calibrate()								//alle aktive Sensoren calibrieren
+subscribe()								//anmelden
+unsubscribe()							//abmelden

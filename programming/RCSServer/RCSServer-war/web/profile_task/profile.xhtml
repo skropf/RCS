@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="availableProfilesForm">
+        <p:growl id="profileMessages" showDetail="true" />
+
+        <h:panelGrid columns="2"
+                     style="width: 100%;">
+            <h:column>
+                <h:panelGrid columns="2"
+                             style="width: 100%; font-family: sans-serif; font-size: 12px;">
+                    <h:outputLabel value="Name:" for="name" />
+                    <h:inputText id="name" value="#{profileController.selectedProfile.name}" title="Name" />
+
+                    <h:outputLabel value="Active:" for="active" />
+                    <h:selectBooleanCheckbox id="active" value="#{profileController.selectedProfile.active}" title="Active" />
+                </h:panelGrid>
+                <p:commandButton value="Create profile"
+                                 style="font-family: sans-serif; font-size: 12px;"
+                                 update="@form :indexTabView:accPanelProfileTask:formAddTasksToProfile:dataTableProfileListAddTasks"
+                                 action="#{profileController.createProfile()}" />
+                
+                <p:commandButton value="Edit profile"
+                                 style="font-family: sans-serif; font-size: 12px;"
+                                 update="@form :indexTabView:accPanelProfileTask:formAddTasksToProfile:dataTableProfileListAddTasks"
+                                 action="#{profileController.editProfile()}" />
+            </h:column>
+            
+            <h:column>
+                <p:dataTable value="#{profileController.profileList}"
+                             var="profile"
+                             selection="#{profileController.selectedProfile}"
+                             selectionMode="single"
+                             rowKey="#{profile.id}"
+                             emptyMessage="No profiles found."
+                             paginator="true"
+                             rows="5"
+                             rowsPerPageTemplate="5,10,15"
+                             style="font-family: sans-serif; font-size: 12px;">
+                    
+                    <p:ajax event="rowSelect" update="@form" />
+
+                    <p:column headerText="Name">
+                        <h:outputText value="#{profile.name}"/>
+                    </p:column>
+                    <p:column headerText="Active">
+                        <div align="center">
+                            <h:selectBooleanCheckbox value="#{profile.active}" disabled="true" />
+                        </div>
+                    </p:column>
+                </p:dataTable>
+
+                <p:commandButton value="Delete selected profile"
+                                 style="font-family: sans-serif; font-size: 12px; float: right;"
+                                 update="@form :indexTabView:accPanelProfileTask:formAddTasksToProfile:dataTableProfileListAddTasks"
+                                 action="#{profileController.deleteProfile()}" />
+            </h:column>
+        </h:panelGrid>
+    </h:form>
+</html>
+

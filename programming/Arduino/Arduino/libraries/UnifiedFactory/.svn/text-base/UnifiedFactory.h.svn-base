@@ -1,0 +1,12 @@
+#ifndef UnifiedFactory_h
+#define UnifiedFactory_h
+class UnifiedFactory
+{
+	public:
+    static UnifiedFactory * getInstance();
+    IPersistable* generateClassFromName(String,String);
+  private:
+  	UnifiedFactory();
+  	static UnifiedFactory *instance;
+};
+#endif
